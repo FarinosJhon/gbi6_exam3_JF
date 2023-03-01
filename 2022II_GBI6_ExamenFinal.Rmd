@@ -1,7 +1,7 @@
 ---
 title: "Bioinformática- GBI6"
 subtitle: "EXAMEN FINAL - 2022II"
-author: "APELLIDO, Nombre"
+author: "FARIÑOS, JHONXD"
 date: "`r Sys.Date()`"
 output:
   html_document:
