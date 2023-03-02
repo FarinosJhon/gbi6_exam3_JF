@@ -36,10 +36,10 @@ Examen de Bioinformática, módulo de Python
     - Python 3.11 (64 bit)
     
 **Módulos/paquetes y utilizados:**
-    - Biopython
-    - reportlab
-    - nglview
-    - coati
-
-**Explicación de la data utilizada:**
-    - Son datos obtenidos del coati, los id son secuencias nuecleotídicas. 
+    - ggplot
+    - ggplot2
+    - palmerpenguins
+    - ggpmisc
+    - plotly
+    - Complexheatmap
+    - Viridis
