@@ -1,7 +1,7 @@
 ---
 title: "Bioinformática- GBI6"
 subtitle: "EXAMEN FINAL - 2022II"
-author: "FARIÑOS, JHONXD"
+author: "FARIÑOS, JHON"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -91,6 +91,7 @@ Puede revisar los datos de los pingüinos utilizando la instrucción `str()` o `
 
 ```{r}
 skimr::skim(penguins)
+head(penguins)
 ```
 
 A continuación se muestra un ejemplo de análisis de la data de los pingüinos de Palmer: 
@@ -146,7 +147,8 @@ ggarrange(p3, ggarrange(p1, p2, labels =c("b", "c"), nrow=2),
 
 ### [1.0 punto] 1.1. Interprete lo que se muestra en la figura anterior
 
-**INTERPRETACIÓN**
+La gráfica (a) muestra los datos ordenados por el eje "x" como el ancho del pico, el eje "y" como el largo del pico, la coloración para las especies siendo el color azul para Gentoo, verde para Chinstrap y rojo para Adelle, además se dividen en tres columnas separando a las 3 islas donde se tomaron los datos, que son: Biscoe, Dream y Torgersen. Las nubes de puntos muestran que la especie Adelle se ubica en las 3 islas mostrando una correlación positiva marcada (Coeficiente de correlación: 0.2 y 0.27) entre el ancho y largo del pico para las islas Biscoe y Dream, así mismo muestran una correlación positiva no tan marcada en la isla Torgersen (Coeficiente de correlación: 0.03).Por otro lado, la especie Chinstrap únicamente se ubica en la isla Dream y muestran una correlación muy fuerte para los dos parámetros con un coeficiente de correlación de 0.43. Finalmente, la especie Gentoo se ubica en la isla Biscoe y muestra una correlación positiva con un coeficiente de correlación de 0.43. 
+Las gráfica b y c, muestran la relación de estas especies entre su longitud y ancho del pico, en cuanto a longitud las especies Chinstrap y Gentoo son mucho mayores a Adelle, sin embargo en cuanto a ancho de pico, las especies Adelle y Chinstrap muestran un pico mucho más ancho que Gentoo, segun la posición de las medias. 
 
 ### [3.0 puntos] 1.2. Genere dos gráficas `p4` y `p5`donde: 
 
@@ -169,6 +171,19 @@ cat(paste0('<center><img src="', img4,'" width="200" height="200" alt=""></cente
 
 ```{r p1.1, echo=TRUE, warning=FALSE, fig.height=8}
 # Escriba aquí su código
+p4 = ggplot(pinguinos, aes(x=body_mass_g, y = flipper_length_mm, color=factor(sex))) + 
+  scale_x_log10() + scale_y_log10() +
+  geom_point(size=0.5, alpha=0.5) + geom_smooth(method = "lm", se = FALSE, na.rm = TRUE) +
+  facet_grid(factor(sex)~factor(island)) + theme_classic() + theme(legend.position = "none") +
+  stat_poly_eq(coef.digits = 2,use_label(c("eq", "adj.R2")), formula = y ~ poly(x,1, raw = TRUE), 
+               label.x.npc = 0.9, label.y.npc = 1.0, cex=3) +
+  labs(x = "Masa Corporal [g]", y = "Largo de Aleta [mm]")
+
+p4
+
+pin = pinguinos %>% select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+cor = ggcorrplot(pin, type = "lower", outline.col = "white")
+cor
 
 ```
 
